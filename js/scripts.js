@@ -57,6 +57,12 @@ console.log(pokemonRepository.getAll());
     });
 })();
 
+// validate whether all Object.keys() of the parameter are equal to the expected specific keys
+Object.keys(pokemonList).forEach(function (item) {
+	console.log(item); // key
+	console.log(pokemonList[item]); // value
+});
+
 // Filter array of objects with multiple values
 let filteredPokemon = pokemonList.filter(function (currentElement) {
   return currentElement.name === "Pidgeot" && currentElement.height === 0.5;
