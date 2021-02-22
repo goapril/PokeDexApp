@@ -2,18 +2,18 @@ let pokemonList = [
   {
     name: 'Bulbasaur',
     height: 2,
-    types: ['grass', 'poision']
+    types: ['grass', 'poision'],
   },
   {
     name: 'Butterfree',
     height: 1.1,
-    types: ['bug', 'flying']
+    types: ['bug', 'flying'],
   },
   {
     name: 'Pidgeot',
     height: 0.5,
-    types: ['flying', 'normal']
-  }
+    types: ['flying', 'normal'],
+  },
 ];
 
 // forEach() function to iterate over the Pokémon in pokemonList array in order to print the details of each one.
@@ -56,6 +56,19 @@ console.log(pokemonRepository.getAll());
       document.write(pokemonName +  ' (height : ' + pokemonHeight + ')'  + ' - That is short. <br/> <br/> ');
     });
 })();
+
+// Filter array of objects with multiple values
+let filteredPokemon = pokemonList.filter(function (currentElement) {
+  return currentElement.name === "Pidgeot" && currentElement.height === 0.5;
+});
+
+console.log(filteredPokemon);
+
+/* let filteredPokemon = pokemonList.filter(function (currentElement) {
+  return currentElement.height < 2 && currentElement.height > 1;
+});
+
+console.log(filteredPokemon); */
 
 // A loop that iterates over each item in pokemonList
 /* for (let i=0; i < pokemonList.length; i++){
