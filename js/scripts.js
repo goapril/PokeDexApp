@@ -25,24 +25,39 @@ pokemonList.forEach(myLoopFunction);
 
 // New pokemonRepository IIFE
 let pokemonRepository = (function () {
+// Function to add pokemon to the pokemonList - with data-type check
   function add(pokemon) {
-    pokemonList.push(pokemon);
+    if (typeof pokemon === 'object') {
+      pokemonList.push(pokemon);
+    } else {
+      console.log('you need an object');
+    }
   }
 
+// Function to return pokemonList
   function getAll() {
     return pokemonList;
   }
 
+// Function to filter array of objects
+  function filterPokemon(value, property) {
+    return pokemonList.filter(function (currentElement) {
+      return currentElement[property] === value
+    })
+  }
+
   return {
     add: add,
-    getAll: getAll
+    getAll: getAll,
+    filterPokemon: filterPokemon
   };
 })();
 
+console.log('This is returned from the filter function', pokemonRepository.filterPokemon('Pidgeot', 'name'));
 pokemonRepository.add({ name: 'Kakuna', height: 0.6, types:['bug', 'poison'] });
 console.log(pokemonRepository.getAll());
 
-// IIFE function with loop to pokemonList array and display it in DOM
+// IIFE function with loop to pokemonList array
 (function () {
   pokemonList.forEach(function(pokemon) {
     let pokemonName = pokemon.name
@@ -57,23 +72,21 @@ console.log(pokemonRepository.getAll());
     });
 })();
 
-// validate whether all Object.keys() of the parameter are equal to the expected specific keys
+// Validate whether all Object.keys() of the parameter are equal to the expected specific keys
 Object.keys(pokemonList).forEach(function (item) {
-	console.log(item); // key
-	console.log(pokemonList[item]); // value
+	console.log(item);
+	console.log(pokemonList[item]);
 });
 
-// Filter array of objects with multiple values
-let filteredPokemon = pokemonList.filter(function (currentElement) {
+// Filter array of objects with multiple values = without new repository
+/* let filteredPokemon = pokemonList.filter(function (currentElement) {
   return currentElement.name === "Pidgeot" && currentElement.height === 0.5;
 });
-
 console.log(filteredPokemon);
 
-/* let filteredPokemon = pokemonList.filter(function (currentElement) {
+let filteredPokemon = pokemonList.filter(function (currentElement) {
   return currentElement.height < 2 && currentElement.height > 1;
 });
-
 console.log(filteredPokemon); */
 
 // A loop that iterates over each item in pokemonList
