@@ -16,13 +16,6 @@ let pokemonList = [
   },
 ];
 
-// forEach() function to iterate over the Pokémon in pokemonList array in order to print the details of each one.
-
-function myLoopFunction(pokemon) {
-  console.log(pokemon.name + ' is ' + pokemon.height + 'm tall. <br/> <br/>');
-}
-pokemonList.forEach(myLoopFunction);
-
 // New pokemonRepository IIFE
 let pokemonRepository = (function () {
 // Function to add pokemon to the pokemonList - with data-type check
@@ -46,10 +39,31 @@ let pokemonRepository = (function () {
     })
   }
 
+// Function to add items on the list with button for each item
+  function addListItem(pokemon){
+    let pokemonList = document.querySelector('.pokemon-list');
+    let listpokemon = document.createElement('li');
+    let button = document.createElement('button');
+    button.innerText = pokemon.name;
+    button.classList.add('button-class');
+    listpokemon.appendChild(button);
+    pokemonList.appendChild(listpokemon);
+    button.addEventListener('click', function () {
+      showDetails(pokemon);
+    });
+  }
+
+// Function to show items on console when clicked
+  function showDetails(pokemon){
+    console.log(pokemon)
+  }
+
   return {
     add: add,
     getAll: getAll,
-    filterPokemon: filterPokemon
+    filterPokemon: filterPokemon,
+    addListItem: addListItem,
+    showDetails: showDetails
   };
 })();
 
@@ -57,8 +71,21 @@ console.log('This is returned from the filter function', pokemonRepository.filte
 pokemonRepository.add({ name: 'Kakuna', height: 0.6, types:['bug', 'poison'] });
 console.log(pokemonRepository.getAll());
 
+pokemonRepository.getAll().forEach(function (pokemon) {
+  pokemonRepository.addListItem(pokemon);
+});
+
+
+
+// forEach() function to iterate over the Pokémon in pokemonList array in order to print the details of each one.
+
+/* function myLoopFunction(pokemon) {
+  console.log(pokemon.name + ' is ' + pokemon.height + 'm tall. <br/> <br/>');
+}
+pokemonList.forEach(myLoopFunction); */
+
 // IIFE function with loop to pokemonList array
-(function () {
+/* (function () {
   pokemonList.forEach(function(pokemon) {
     let pokemonName = pokemon.name
     let pokemonHeight = pokemon.height
@@ -70,13 +97,13 @@ console.log(pokemonRepository.getAll());
     } else
       document.write(pokemonName +  ' (height : ' + pokemonHeight + ')'  + ' - That is short. <br/> <br/> ');
     });
-})();
+})(); */
 
 // Validate whether all Object.keys() of the parameter are equal to the expected specific keys
-Object.keys(pokemonList).forEach(function (item) {
+/* Object.keys(pokemonList).forEach(function (item) {
 	console.log(item);
 	console.log(pokemonList[item]);
-});
+}); */
 
 // Filter array of objects with multiple values = without new repository
 /* let filteredPokemon = pokemonList.filter(function (currentElement) {
