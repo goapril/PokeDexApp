@@ -49,13 +49,16 @@ let pokemonRepository = (function () {
     listpokemon.appendChild(button);
     pokemonList.appendChild(listpokemon);
     button.addEventListener('click', function () {
-      showDetails(pokemon);
+      showDetails(pokemon, listpokemon);
     });
   }
 
-// Function to show items on console when clicked
-  function showDetails(pokemon){
-    console.log(pokemon)
+// Function to show item photo on browser when clicked
+  function showDetails(pokemon, listpokemon){
+    // create Image in JavaScript
+    let imageElement = new Image();
+    imageElement.src = pokemon.imageFile;
+    listpokemon.appendChild(imageElement);
   }
 
   return {
