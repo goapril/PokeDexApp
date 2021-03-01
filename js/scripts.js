@@ -1,4 +1,4 @@
-let pokemonList = [
+/* let pokemonList = [
   {
     name: 'Bulbasaur',
     height: 2,
@@ -14,13 +14,19 @@ let pokemonList = [
     height: 0.5,
     types: ['flying', 'normal'],
   },
-];
+]; */
 
 // New pokemonRepository IIFE
 let pokemonRepository = (function () {
+  let pokemonList = [];
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+
 // Function to add pokemon to the pokemonList - with data-type check
   function add(pokemon) {
-    if (typeof pokemon === 'object') {
+    if (typeof pokemon === "object" &&
+      "name" in pokemon &&
+      "detailsUrl" in pokemon
+    ) {
       pokemonList.push(pokemon);
     } else {
       console.log('you need an object');
@@ -49,16 +55,55 @@ let pokemonRepository = (function () {
     listpokemon.appendChild(button);
     pokemonList.appendChild(listpokemon);
     button.addEventListener('click', function () {
-      showDetails(pokemon, listpokemon);
+      showDetails(pokemon /*, listpokemon*/);
     });
   }
 
 // Function to show item photo on browser when clicked
-  function showDetails(pokemon, listpokemon){
+/*  function showDetails(pokemon, listpokemon){
     // create Image in JavaScript
     let imageElement = new Image();
     imageElement.src = pokemon.imageFile;
     listpokemon.appendChild(imageElement);
+  } */
+
+// Function to get the Pokémon’s details from the server
+  function showDetails(pokemon) {
+    loadDetails(pokemon).then(function () {
+      console.log(pokemon);
+    });
+  }
+
+// Function to load pokemon list from pokeapi
+  function loadList() {
+    return fetch(apiUrl).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      json.results.forEach(function (item) {
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+      });
+    }).catch(function (e) {
+      console.error(e);
+    })
+  }
+
+// Function to load details of Pokemon
+  function loadDetails(item) {
+    let url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }).then(function (details) {
+      // Now we add the details to the item
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = details.types;
+    }).catch(function (e) {
+      console.error(e);
+    });
   }
 
   return {
@@ -66,7 +111,9 @@ let pokemonRepository = (function () {
     getAll: getAll,
     filterPokemon: filterPokemon,
     addListItem: addListItem,
-    showDetails: showDetails
+    showDetails: showDetails,
+    loadList: loadList,
+    loadDetails: loadDetails
   };
 })();
 
@@ -74,11 +121,12 @@ console.log('This is returned from the filter function', pokemonRepository.filte
 pokemonRepository.add({ name: 'Kakuna', height: 0.6, types:['bug', 'poison'] });
 console.log(pokemonRepository.getAll());
 
-pokemonRepository.getAll().forEach(function (pokemon) {
-  pokemonRepository.addListItem(pokemon);
+pokemonRepository.loadList().then(function() {
+  // Now the data is loaded!
+  pokemonRepository.getAll().forEach(function(pokemon){
+    pokemonRepository.addListItem(pokemon);
+  });
 });
-
-
 
 // forEach() function to iterate over the Pokémon in pokemonList array in order to print the details of each one.
 
