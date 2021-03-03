@@ -20,7 +20,7 @@
 let pokemonRepository = (function () {
   let modalContainer = document.querySelector('#modal-container');
   let pokemonList = [];
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=10';
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=20';
 
 // Function to get the Pokémon’s details from the server
   function showDetails(pokemon) {
