@@ -18,8 +18,74 @@
 
 // New pokemonRepository IIFE
 let pokemonRepository = (function () {
+  let modalContainer = document.querySelector('#modal-container');
   let pokemonList = [];
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=10';
+
+// Function to get the Pokémon’s details from the server
+  function showDetails(pokemon) {
+    loadDetails(pokemon).then(function () {
+      showModal(pokemon);
+    });
+  }
+
+// Function to enable specifying a title and content
+  function showModal(pokemon) {
+    // Clear all existing modal content
+    modalContainer.innerHTML = '';
+
+    let modal = document.createElement('div');
+    modal.classList.add('modal');
+
+    // Add the new modal content
+    let closeButtonElement = document.createElement('button');
+    closeButtonElement.classList.add('modal-close');
+    closeButtonElement.innerText = 'x';
+    closeButtonElement.addEventListener('click', hideModal);
+
+    let titleElement = document.createElement('h2');
+    titleElement.innerText = pokemon.name;
+
+    let contentElement = document.createElement('p');
+    contentElement.innerText = 'Height: ' + pokemon.height;
+
+    let pokemonImage = document.createElement('img');
+    pokemonImage.src = pokemon.imageUrl;
+
+    modal.appendChild(closeButtonElement);
+    modal.appendChild(titleElement);
+    modal.appendChild(contentElement);
+    modal.appendChild(pokemonImage);
+    modalContainer.appendChild(modal);
+
+    modalContainer.classList.add('is-visible');
+  }
+
+// Function to close the modal
+  function hideModal() {
+    modalContainer.classList.remove('is-visible');
+  }
+
+  // hiding the modal if it’s actually visible (with ESC key)
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+      hideModal();
+    }
+  });
+
+  modalContainer.addEventListener('click', (e) => {
+    // Since this is also triggered when clicking INSIDE the modal
+    // We only want to close if the user clicks directly on the overlay
+    let target = e.target;
+    if (target === modalContainer) {
+      hideModal();
+    }
+  });
+
+  /* document.querySelector('#show-modal').addEventListener('click', () => {
+    // showModal('Modal title', 'This is the modal content!');
+    showModal();
+  }); */
 
 // Function to add pokemon to the pokemonList - with data-type check
   function add(pokemon) {
@@ -67,13 +133,6 @@ let pokemonRepository = (function () {
     listpokemon.appendChild(imageElement);
   } */
 
-// Function to get the Pokémon’s details from the server
-  function showDetails(pokemon) {
-    loadDetails(pokemon).then(function () {
-      console.log(pokemon);
-    });
-  }
-
 // Function to load pokemon list from pokeapi
   function loadList() {
     return fetch(apiUrl).then(function (response) {
@@ -114,13 +173,15 @@ let pokemonRepository = (function () {
     addListItem: addListItem,
     showDetails: showDetails,
     loadList: loadList,
-    loadDetails: loadDetails
+    loadDetails: loadDetails,
+    showModal: showModal,
+    hideModal: hideModal
   };
 })();
 
-console.log('This is returned from the filter function', pokemonRepository.filterPokemon('Pidgeot', 'name'));
+/* console.log('This is returned from the filter function', pokemonRepository.filterPokemon('Pidgeot', 'name'));
 pokemonRepository.add({ name: 'Kakuna', height: 0.6, types:['bug', 'poison'] });
-console.log(pokemonRepository.getAll());
+console.log(pokemonRepository.getAll()); */
 
 pokemonRepository.loadList().then(function() {
   // Now the data is loaded!
