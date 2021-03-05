@@ -1,21 +1,3 @@
-/* let pokemonList = [
-  {
-    name: 'Bulbasaur',
-    height: 2,
-    types: ['grass', 'poision'],
-  },
-  {
-    name: 'Butterfree',
-    height: 1.1,
-    types: ['bug', 'flying'],
-  },
-  {
-    name: 'Pidgeot',
-    height: 0.5,
-    types: ['flying', 'normal'],
-  },
-]; */
-
 // New pokemonRepository IIFE
 let pokemonRepository = (function () {
   let modalContainer = document.querySelector('#modal-container');
