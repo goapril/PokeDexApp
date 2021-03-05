@@ -46,6 +46,7 @@ let pokemonRepository = (function () {
 // Function to close the modal
   function hideModal() {
     modalContainer.classList.remove('is-visible');
+    if (window.confirm("Do you really want to close this?"));
   }
 
   // hiding the modal if it’s actually visible (with ESC key)
@@ -63,11 +64,6 @@ let pokemonRepository = (function () {
       hideModal();
     }
   });
-
-  /* document.querySelector('#show-modal').addEventListener('click', () => {
-    // showModal('Modal title', 'This is the modal content!');
-    showModal();
-  }); */
 
 // Function to add pokemon to the pokemonList - with data-type check
   function add(pokemon) {
@@ -106,14 +102,6 @@ let pokemonRepository = (function () {
       showDetails(pokemon /*, listpokemon*/);
     });
   }
-
-// Function to show item photo on browser when clicked
-/*  function showDetails(pokemon, listpokemon){
-    // create Image in JavaScript
-    let imageElement = new Image();
-    imageElement.src = pokemon.imageFile;
-    listpokemon.appendChild(imageElement);
-  } */
 
 // Function to load pokemon list from pokeapi
   function loadList() {
@@ -161,16 +149,24 @@ let pokemonRepository = (function () {
   };
 })();
 
-/* console.log('This is returned from the filter function', pokemonRepository.filterPokemon('Pidgeot', 'name'));
-pokemonRepository.add({ name: 'Kakuna', height: 0.6, types:['bug', 'poison'] });
-console.log(pokemonRepository.getAll()); */
-
 pokemonRepository.loadList().then(function() {
   // Now the data is loaded!
   pokemonRepository.getAll().forEach(function(pokemon){
     pokemonRepository.addListItem(pokemon);
   });
 });
+
+/* console.log('This is returned from the filter function', pokemonRepository.filterPokemon('Pidgeot', 'name'));
+pokemonRepository.add({ name: 'Kakuna', height: 0.6, types:['bug', 'poison'] });
+console.log(pokemonRepository.getAll()); */
+
+// Function to show item photo on browser when clicked in IIFE
+/*  function showDetails(pokemon, listpokemon){
+    // create Image in JavaScript
+    let imageElement = new Image();
+    imageElement.src = pokemon.imageFile;
+    listpokemon.appendChild(imageElement);
+  } */
 
 // forEach() function to iterate over the Pokémon in pokemonList array in order to print the details of each one.
 
