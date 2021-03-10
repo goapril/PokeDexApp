@@ -10,8 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,500;1,300&display=swap" rel="stylesheet">
   </head>
   <body>
+    <nav class="navbar navbar-dark bg-dark">
+      <span class="navbar-brand mb-0 h1">Pokédex</span>
+      <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Type here" aria-label="Search">
+        <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </nav>
       <h1>Pokédex</h1>
-      <ul class="pokemon-list"></ul>
+      <ul class="pokemon-list list-group"></ul>
       <!-- <button id='show-modal'>Show modal</button> -->
       <div id='modal-container'>
         <!-- <div class='modal'>
