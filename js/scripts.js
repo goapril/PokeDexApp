@@ -13,28 +13,39 @@ let pokemonRepository = (function () {
 
 // Function for showModal with Bootstrap
   function showModal(pokemon) {
-    modalContainer.innerText = '';
+    modalContainer.innerHTML = '';
+
     // Add the new modal content
     let closeButtonElement = document.createElement('button');
-    closeButtonElement.classList.add('modal-close');
-    closeButtonElement.classList.add('btn btn-primary');
+    //closeButtonElement.classList.add('modal-close');
+    closeButtonElement.classList.add('btn');
+    closeButtonElement.classList.add('btn-primary');
+
     closeButtonElement.innerText = 'x';
     closeButtonElement.addEventListener('click', hideModal);
 
-    let titleElement = document.createElement('h5');
+    let titleElement = document.createElement('h2');
     titleElement.innerText = pokemon.name;
 
-    let contentElement = document.createElement('p');
-    contentElement.innerText = 'Height: ' + pokemon.height;
+    let heightElement = document.createElement('p');
+    heightElement.innerText = 'H: ' + pokemon.height + 'm';
+
+    let weightElement = document.createElement('p');
+    weightElement.innerText = 'W: ' + pokemon.weight + 'kg';
+
+    let typesElement = document.createElement('p');
+    typesElement.innerText = pokemon.types;
 
     let pokemonImage = document.createElement('img');
     pokemonImage.src = pokemon.imageUrl;
+    pokemonImage.style.height = "200px";
 
     modal.appendChild(closeButtonElement);
     modal.appendChild(titleElement);
-    modal.appendChild(contentElement);
+    modal.appendChild(heightElement);
+    modal.appendChild(weightElement);
+    modal.appendChild(typesElement);
     modal.appendChild(pokemonImage);
-    modalContainer.appendChild(modal);
 
     modalContainer.classList.add('is-visible');
   }
@@ -124,9 +135,10 @@ let pokemonRepository = (function () {
     let button = document.createElement('button');
     button.innerText = pokemon.name;
     //button.classList.add('button-class');
-    button.classList.add('list-group-item');
-    button.classList.add("btn");
-    button.classList.add("btn-primary");
+    //button.classList.add('group-list-item');
+    button.classList.add('btn');
+    button.classList.add('btn-outline-secondary');
+    button.classList.add('btn-block');
     listpokemon.appendChild(button);
     pokemonList.appendChild(listpokemon);
     button.addEventListener('click', function () {
@@ -162,7 +174,10 @@ let pokemonRepository = (function () {
       item.imageUrl = details.sprites.front_default;
       item.height = details.height;
       item.weight = details.weight;
-      item.types = details.types;
+      item.types = [];
+        details.types.forEach(function(pokemon){
+          item.types.push(pokemon.type.name.charAt(0).toUpperCase()+ pokemon.type.name.slice(1))
+        })
     }).catch(function (e) {
       console.error(e);
     });
