@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Simple JS App</title>
+    <title>PokeApp</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,500;1,300&display=swap" rel="stylesheet">
@@ -13,43 +13,29 @@
     <nav class="navbar fixed-top navbar-dark bg-dark">
       <span class="navbar-brand mb-0 h1">Pokédex</span>
       <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Type here" aria-label="Search">
+        <input class="form-control mr-sm-2" id="pokemon-search" type="search" placeholder="Type here" aria-label="Search">
         <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
       </form>
     </nav>
-      <!-- <h1>Pokédex</h1> -->
       <div class="col-sm">
-        <ul class="pokemon-list">
+        <ul class="pokemon-list" id="pokemon-Ul">
           <!-- li Javascript Code -->
         </ul>
       </div>
-      <!-- <button id='show-modal'>Show modal</button> -->
-      <!-- <div id='modal-container'> -->
-        <!-- <div class='modal'>
-        <button class='modal-close'>Close</button>
-        < h2>Modal title</h2>
-        <p>Modal text</p>
-        </div> -->
-      <!-- </div> -->
-
-      <!-- Button trigger modal
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Launch demo modal
-      </button>  -->
 
       <!-- Modal -->
-      <div class="modal fade" id="modal-container" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal-container" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel"></h5>
+              <h2 class="modal-title" id="exampleModalLabel"></h2>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
               <!-- Javascript Code -->
-            </div>
+          </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
