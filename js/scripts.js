@@ -13,22 +13,14 @@ let pokemonRepository = (function () {
 
 // Function for showModal with Bootstrap
   function showModal(pokemon) {
-    modalContainer.innerHTML = '';
+    // Add Pokemon name/title
+    let modalTitle = document.querySelector('.modal-title');
+    modalTitle.innerHTML = ''; //to reset
+    modalTitle.innerText = pokemon.name;
 
-    let modal = document.querySelector('.modal');
-    //modal.classList.add('modal');
-
-    // Add the new modal content
-    let closeButtonElement = document.createElement('button');
-    //closeButtonElement.classList.add('modal-close');
-    closeButtonElement.classList.add('btn');
-    closeButtonElement.classList.add('btn-primary');
-
-    closeButtonElement.innerText = 'x';
-    closeButtonElement.addEventListener('click', hideModal);
-
-    let titleElement = document.createElement('h2');
-    titleElement.innerText = pokemon.name;
+    // Add Pokemon details/content in the body
+    let modal = document.querySelector('.modal-body');
+    modal.innerHTML = '';
 
     let heightElement = document.createElement('p');
     heightElement.innerText = 'H: ' + pokemon.height + 'm';
@@ -43,13 +35,10 @@ let pokemonRepository = (function () {
     pokemonImage.src = pokemon.imageUrl;
     pokemonImage.style.height = "200px";
 
-    modal.appendChild(closeButtonElement);
-    modal.appendChild(titleElement);
     modal.appendChild(heightElement);
     modal.appendChild(weightElement);
     modal.appendChild(typesElement);
     modal.appendChild(pokemonImage);
-    modalContainer.appendChild(modal);
     modalContainer.classList.add('is-visible');
   }
 
@@ -142,6 +131,8 @@ let pokemonRepository = (function () {
     button.classList.add('btn');
     button.classList.add('btn-outline-secondary');
     button.classList.add('btn-block');
+    button.setAttribute('data-toggle', 'modal');
+    button.setAttribute('data-target', '#modal-container');
     listpokemon.appendChild(button);
     pokemonList.appendChild(listpokemon);
     button.addEventListener('click', function () {
@@ -186,6 +177,24 @@ let pokemonRepository = (function () {
     });
   }
 
+  function mySeachFunction() {
+    // Declare variables
+    let input, filter, ul, li;
+    input = document.getElementById("pokemon-search");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("pokemon-Ul");
+    li = ul.getElementsByTagName("li");
+
+    // Loop through all list items, and hide those who don't match the search query
+    for (let i = 0; i < li.length; i++) {
+      if (li[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+      } else {
+        li[i].style.display = "none";
+      }
+    }
+  }
+
   return {
     add: add,
     getAll: getAll,
@@ -195,7 +204,8 @@ let pokemonRepository = (function () {
     loadList: loadList,
     loadDetails: loadDetails,
     showModal: showModal,
-    hideModal: hideModal
+    hideModal: hideModal,
+    mySeachFunction: mySeachFunction
   };
 })();
 
