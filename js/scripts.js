@@ -143,22 +143,30 @@ let pokemonRepository = (function () {
     });
   }
 
-  /*function search() {
+  // Get input element and add event listener
+  let searchfield = document.getElementById("pokemon-search");
+  searchfield.addEventListener('keyup', search);
+
+  function search() {
+    // Declare variables
     let input, filter, ul, li, button, i, txtValue;
     input = document.getElementById("pokemon-search");
     filter = input.value.toUpperCase();
-    ul = document.getElementById("pokemon-Ul");
-    li = ul.getElementsByTagName("li");
-    for (i = 0; i < li.length; i++) {
-        button = li[i].getElementsByTagName("button")[0];
-        txtValue = button.textContent || button.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
+    list = document.querySelector('.pokemon-list');
+    li = list.getElementsByTagName("li");
+
+    // Loop through all list items, and hide those who don't match the search query
+      for (let i = 0; i < li.length; i++) {
+      console.log(li)
+      button = li[i].getElementsByTagName("button")[0];
+      txtValue = button.textContent || button.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+      } else {
+          li[i].style.display = "none";
       }
-    }*/
+    }
+  }
 
   return {
     add: add,
@@ -180,20 +188,3 @@ pokemonRepository.loadList().then(function() {
     pokemonRepository.addListItem(pokemon);
   });
 });
-
-function search() {
-  let input, filter, ul, li, button, i, txtValue;
-  input = document.getElementById("pokemon-search");
-  filter = input.value.toUpperCase();
-  ul = document.getElementById("pokemon-Ul");
-  li = ul.getElementsByTagName("li");
-  for (i = 0; i < li.length; i++) {
-      button = li[i].getElementsByTagName("button")[0];
-      txtValue = button.textContent || button.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          li[i].style.display = "";
-      } else {
-          li[i].style.display = "none";
-      }
-    }
-  }
