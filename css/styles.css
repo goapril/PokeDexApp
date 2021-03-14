@@ -18,6 +18,10 @@ ul {
   margin-top: 60px;
 }
 
+li {
+  padding-top: 5px;
+}
+
 .button-class {
   width: 200px;
   background-color: #4285f4;
