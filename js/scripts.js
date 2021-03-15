@@ -33,7 +33,7 @@ let pokemonRepository = (function () {
 
     let pokemonImage = document.createElement('img');
     pokemonImage.src = pokemon.imageUrl;
-    pokemonImage.style.height = "200px";
+    pokemonImage.style.height = '200px';
 
     modal.appendChild(heightElement);
     modal.appendChild(weightElement);
@@ -45,7 +45,7 @@ let pokemonRepository = (function () {
 // Function to close the modal
   function hideModal() {
     modalContainer.classList.remove('is-visible');
-    //if (window.confirm("Do you really want to close this?"));
+    //if (window.confirm('Do you really want to close this?'));
   }
 
   // hiding the modal if it’s actually visible (with ESC key)
@@ -66,9 +66,9 @@ let pokemonRepository = (function () {
 
 // Function to add pokemon to the pokemonList - with data-type check
   function add(pokemon) {
-    if (typeof pokemon === "object" &&
-      "name" in pokemon &&
-      "detailsUrl" in pokemon
+    if (typeof pokemon === 'object' &&
+      'name' in pokemon &&
+      'detailsUrl' in pokemon
     ) {
       pokemonList.push(pokemon);
     } else {
@@ -146,26 +146,26 @@ let pokemonRepository = (function () {
   }
 
   // Get input element and add event listener
-  let searchfield = document.getElementById("pokemon-search");
+  let searchfield = document.getElementById('pokemon-search');
   searchfield.addEventListener('keyup', search);
 
   function search() {
     // Declare variables
-    let input, filter, ul, li, button, i, txtValue;
-    input = document.getElementById("pokemon-search");
+    let input, filter, li, list, button, txtValue;
+    input = document.getElementById('pokemon-search');
     filter = input.value.toUpperCase();
     list = document.querySelector('.pokemon-list');
-    li = list.getElementsByTagName("li");
+    li = list.getElementsByTagName('li');
 
     // Loop through all list items, and hide those who don't match the search query
       for (let i = 0; i < li.length; i++) {
       console.log(li)
-      button = li[i].getElementsByTagName("button")[0];
+      button = li[i].getElementsByTagName('button')[0];
       txtValue = button.textContent || button.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          li[i].style.display = "";
+          li[i].style.display = '';
       } else {
-          li[i].style.display = "none";
+          li[i].style.display = 'none';
       }
     }
   }
@@ -179,8 +179,7 @@ let pokemonRepository = (function () {
     loadList: loadList,
     loadDetails: loadDetails,
     showModal: showModal,
-    hideModal: hideModal,
-    //search: search
+    hideModal: hideModal
   };
 })();
 
