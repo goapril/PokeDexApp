@@ -109,41 +109,58 @@ let pokemonRepository = (function () {
   }
 
 // Function to load pokemon list from pokeapi
-  function loadList() {
-    return fetch(apiUrl).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      json.results.forEach(function (item) {
-        let pokemon = {
-                //Capitalize the first letter of each pokemonName
-          name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
-          detailsUrl: item.url
-        };
-        add(pokemon);
-      });
-    }).catch(function (e) {
-      console.error(e);
-    })
-  }
+function loadList() {
+  showLoadingMessage();
+  return fetch(apiUrl).then(function (response) {
+    return response.json();
+  }).then(function (json) {
+    json.results.forEach(function (item) {
+      let pokemon = {
+              //Capitalize the first letter of each pokemonName
+        name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+        detailsUrl: item.url
+      };
+      add(pokemon);
+    });
+    hideLoadingMessage();
+  }).catch(function (e) {
+    console.error(e);
+    hideLoadingMessage();
+  })
+}
 
 // Function to load details of Pokemon
-  function loadDetails(item) {
-    let url = item.detailsUrl;
-    return fetch(url).then(function (response) {
-      return response.json();
-    }).then(function (details) {
-      // Now we add the details to the item
-      item.imageUrl = details.sprites.other.dream_world.front_default;
-      item.height = details.height;
-      item.weight = details.weight;
-      item.types = [];
-        details.types.forEach(function(pokemon){
-          item.types.push(pokemon.type.name.charAt(0).toUpperCase()+ pokemon.type.name.slice(1))
-        })
-    }).catch(function (e) {
-      console.error(e);
-    });
-  }
+function loadDetails(item) {
+  showLoadingMessage();
+  let url = item.detailsUrl;
+  return fetch(url).then(function (response) {
+    return response.json();
+  }).then(function (details) {
+    // Now we add the details to the item
+    item.imageUrl = details.sprites.other.dream_world.front_default;
+    item.height = details.height;
+    item.weight = details.weight;
+    item.types = [];
+      details.types.forEach(function(pokemon){
+        item.types.push(pokemon.type.name.charAt(0).toUpperCase()+ pokemon.type.name.slice(1))
+      })
+      hideLoadingMessage();
+  }).catch(function (e) {
+    console.error(e);
+    hideLoadingMessage();
+  });
+}
+
+// Function to add loading message
+function showLoadingMessage() {
+  let message = document.querySelector('#loadingmessage');
+  message.classList.add('is-visible');
+}
+
+function hideLoadingMessage() {
+  let message = document.querySelector('#loadingmessage');
+  message.classList.remove('is-visible');
+}
 
   // Get input element and add event listener
   let searchfield = document.getElementById('pokemon-search');
