@@ -2,7 +2,7 @@
 Achievement 1 Project: JavaScript App (Pokédex)
 
 # Project Link:
-file:///Users/aprilgo/Desktop/PokeApp/simple-js-app/index.html
+https://github.com/goapril/PokeDexApp
 
 # Project Objective:
 To build a small web application with HTML, CSS, and JavaScript that loads
