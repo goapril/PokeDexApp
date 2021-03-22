@@ -15,7 +15,7 @@ let pokemonRepository = (function () {
   function showModal(pokemon) {
     // Add Pokemon name/title
     let modalTitle = document.querySelector('.modal-title');
-    modalTitle.innerHTML = ''; //to reset
+    //modalTitle.innerHTML = ''; //to reset
     modalTitle.innerText = pokemon.name;
 
     // Add Pokemon details/content in the body
