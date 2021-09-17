@@ -1,6 +1,9 @@
 # Project Name:
 Achievement 1 Project: JavaScript App (Pokédex)
 
+![](img/Pokedex1.png)
+![](img/Pokedex2.png)
+
 # Project Link:
 https://goapril.github.io/PokeDexApp/
 
