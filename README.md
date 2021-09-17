@@ -1,5 +1,5 @@
 # Project Name:
-Achievement 1 Project: JavaScript App (Pokédex)
+Pokédex App
 
 ![](img/Pokedex1.png)
 ![](img/Pokedex2.png)
